@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout=(TabLayout)findViewById(R.id.main_tab);
         pager=(ViewPager)findViewById(R.id.main_viewpager);
         ViewAdapter vadt=new ViewAdapter(getSupportFragmentManager());;
+        vadt.AddFragment(new Fcloud(),"클라우드");
         vadt.AddFragment(new Fhome(),"홈");
         vadt.AddFragment(new Fstudy(),"스터디라인");
-        vadt.AddFragment(new Fcloud(),"클라우드");
         pager.setAdapter(vadt);
         tabLayout.setupWithViewPager(pager);
 

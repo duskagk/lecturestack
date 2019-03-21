@@ -23,11 +23,18 @@
                 android:text="로그인 후 이용가능합니다."/>
 
             <Button
+                android:id="@+id/f_home_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="로그인"
                 android:textColor="#ffffff"/>
+
+            <Button
+                android:id="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
 
         </LinearLayout>
 
