@@ -21,6 +21,10 @@
                 android:layout_marginTop="50dp"
                 android:layout_gravity="center"
                 android:text="로그인 후 이용가능합니다."/>
+            <TextView
+                android:id="@+id/f_home_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/f_home_btn"
@@ -32,9 +36,14 @@
 
             <Button
                 android:id="@+id/test"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Button" />
+            <Button
+                android:id="@+id/test2"
+                android:text="choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -53,7 +62,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/rcview"
+                    android:id="@+id/f_home_rcview"
                     android:orientation="horizontal">
 
                 </android.support.v7.widget.RecyclerView>

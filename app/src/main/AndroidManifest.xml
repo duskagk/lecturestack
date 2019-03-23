@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".add_subject"></activity>
+        <activity android:name=".Select_subject"></activity>
+        <activity android:name=".add_subject" />
         <activity android:name=".signup" />
         <activity android:name=".login" />
         <activity android:name=".MainActivity" />
