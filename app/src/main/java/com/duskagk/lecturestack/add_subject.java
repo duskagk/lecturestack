@@ -3,6 +3,7 @@ package com.duskagk.lecturestack;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 
 import com.duskagk.lecturestack.Model.SubModel;
 import com.duskagk.lecturestack.Model.UserModel;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 
@@ -55,8 +58,20 @@ public class add_subject extends AppCompatActivity {
                                                 SubModel subModel=new SubModel();
                                                 subModel.bookImg=url;
                                                 subModel.subName=subName.getText().toString();
-                                                FirebaseDatabase.getInstance().getReference().child("subject").child(subName.getText().toString()).setValue(subModel);
-                                                finish();
+                                                FirebaseFirestore.getInstance().collection("subject").document(subModel.subName)
+                                                        .set(subModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        finish();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+
+                                                    }
+                                                });
+//                                                FirebaseDatabase.getInstance().getReference().child("subject").child(subName.getText().toString()).setValue(subModel);
+
 
                                             }
                                         });

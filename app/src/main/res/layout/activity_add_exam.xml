@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".add_exam">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_sub_name"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:text="과목"/>
+            <LinearLayout
+                android:layout_below="@+id/add_sub_name"
+                android:id="@+id/answpcnrk1"
+                android:paddingHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="대단원"/>
+                <Spinner
+                    android:id="@+id/examSubject"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnExamSubject"
+                    android:text="+"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/answpcnrk2"
+                android:paddingHorizontal="20dp"
+                android:layout_below="@+id/answpcnrk1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="중단원"/>
+                <Spinner
+                    android:id="@+id/examDenouement"
+                    android:layout_width="match_parent"
+                    android:layout_weight="4"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+
+                </Spinner>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnExamDenouement"
+                    android:text="+"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/answpcnrk3"
+                android:layout_below="@+id/answpcnrk2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="문제입력"/>
+                <EditText
+                    android:id="@+id/add_exam"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+
+
+                    android:paddingHorizontal="20dp"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="10"
+                            android:layout_height="wrap_content">
+                            <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="정답"/>-->
+                            <EditText
+                                android:id="@+id/examAnswer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="정답"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:layout_height="match_parent">
+
+                            <Button
+                                android:id="@+id/addanswer"
+                                android:layout_width="59dp"
+                                android:layout_height="wrap_content"
+                                android:text="+" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/answers"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/laybox"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/asdfxcv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_below="@+id/answpcnrk3"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/seimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/examPush"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="제출" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -16,16 +16,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.duskagk.lecturestack.Control.MyApp;
 import com.duskagk.lecturestack.MainActivity;
 import com.duskagk.lecturestack.Model.SubModel;
 import com.duskagk.lecturestack.R;
+import com.duskagk.lecturestack.Select_subject;
+import com.duskagk.lecturestack.add_exam;
 import com.duskagk.lecturestack.add_subject;
 import com.duskagk.lecturestack.login;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
@@ -54,20 +64,34 @@ public class Fhome extends Fragment {
                 startActivity(intent);
             }
         });
+        //test용 버튼들
         btn_test=(Button)view.findViewById(R.id.test);
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), add_subject.class);
+                Intent intent=new Intent(getActivity(), add_exam.class);
                 startActivity(intent);
             }
         });
+
+        Button btn_test2=(Button)view.findViewById(R.id.test2);
+        btn_test2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), Select_subject.class);
+                startActivity(intent);
+            }
+        });
+
+        // test용 버튼들
+
         RecyclerView rcview=(RecyclerView)view.findViewById(R.id.f_home_rcview);
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rcview.setLayoutManager(mLayoutManager);
         rcview.setAdapter(new SubjectRecyclerView());
         TextView user=(TextView)view.findViewById(R.id.f_home_user);
+
 
         user.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail().toString());
 
@@ -77,25 +101,53 @@ public class Fhome extends Fragment {
 
     class SubjectRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
+        MyApp myApp;
         List<SubModel> subModels;
         public SubjectRecyclerView() {
             subModels=new ArrayList<>();
-            FirebaseDatabase.getInstance().getReference().child("subject").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    subModels.clear();
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        SubModel subModel=snapshot.getValue(SubModel.class);
-                        subModels.add(snapshot.getValue(SubModel.class));
-                    }
-                    notifyDataSetChanged();
-                }
 
+            FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .collection("MySubject").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                    FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .collection("MySubject").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            subModels.clear();
+                            for(QueryDocumentSnapshot item : task.getResult()){
+                                subModels.add(item.toObject(SubModel.class));
+                            }
+
+
+                        }
+                    });
+
 
                 }
             });
+
+
+
+
+//                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("MySubject").
+//                        addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                subModels.clear();
+//                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                    SubModel subModel = snapshot.getValue(SubModel.class);
+//                                    subModels.add(snapshot.getValue(SubModel.class));
+//                                }
+//                                notifyDataSetChanged();
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+
         }
 
         @NonNull
@@ -115,6 +167,7 @@ public class Fhome extends Fragment {
         @Override
         public int getItemCount() {
             return subModels.size();
+
         }
         private class CustomViewHolder1 extends RecyclerView.ViewHolder{
             public ImageView bookImg;

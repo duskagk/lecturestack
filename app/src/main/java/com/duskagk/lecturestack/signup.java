@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class signup extends AppCompatActivity {
     private Button signup_btn;
@@ -41,6 +42,8 @@ public class signup extends AppCompatActivity {
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final FirebaseFirestore db=FirebaseFirestore.getInstance();
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(id_edt.getText().toString(),pass2_edt.getText().toString())
                         .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -52,10 +55,18 @@ public class signup extends AppCompatActivity {
                                     userModel.uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
                                     userModel.userName=nick_edt.getText().toString();
                                     userModel.userID=id_edt.getText().toString();
-                                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
-                                    Intent intent = new Intent(signup.this,MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    db.getInstance().collection("users").document(userModel.uid).set(userModel)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Intent intent = new Intent(signup.this,MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+
+//                                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+
 
                                 }
                                 else{
